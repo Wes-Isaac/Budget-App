@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root 'categories#index'
+  root 'groups#index'
 
   resources :groups, only: [:index, :show, :new, :create, :destroy] do
     resources :payments, only: [:index, :show, :new, :create]
