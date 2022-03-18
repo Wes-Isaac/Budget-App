@@ -5,7 +5,7 @@ RSpec.describe 'GroupTrack', type: :request do
   let(:user) { User.create(name: 'test', email: 'example@mail.com', password: '123456') }
   let(:group) { user.groups.create(name: 'Food', icon: 'https://i.imgur.com/Ar3Lf3Dt.png') }
   let(:payment) { user.payments.create(name: 'dinner', amount: 200) }
-  
+
   describe 'GET /show' do
     before do
       sign_in user

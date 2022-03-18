@@ -22,5 +22,4 @@ RSpec.feature 'Group Index', type: :feature do
   it 'show payment name' do
     expect(page).to have_content 'Please add a payment'
   end
-
 end
