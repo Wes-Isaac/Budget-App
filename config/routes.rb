@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root 'groups#index'
 
   resources :groups, only: [:index, :show, :new, :create, :destroy] do
-    resources :payments, only: [:index, :show, :new, :create]
+    resources :payments, only: [:index, :show, :new, :create, :destroy]
   end
 
 end
