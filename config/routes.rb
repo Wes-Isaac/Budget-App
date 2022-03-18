@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   root 'groups#index'
 
-  resources :groups, only: [:index, :show, :new, :create, :destroy] do
-    resources :payments, only: [:index, :show, :new, :create, :destroy]
-  end
+  resources :groups, only: [:index, :show, :new, :create, :destroy]
+  resources :payments, only: [:new, :create, :destroy]
 
 end

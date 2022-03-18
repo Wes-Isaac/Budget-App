@@ -2,19 +2,19 @@ class PaymentsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @group = Group.find(params[:group_id])
+    @group = Group.find(params[:id])
     @payment = Payment.new
   end
 
 
   def create
-    group = Group.find(params[:group_id])
-    payment = group.payments.create(payment_params)
+    @group = Group.find_by(name: payment_params[:category])
+    payment = @group.payments.new(name: payment_params[:name], amount: payment_params[:amount], user_id: current_user.id, group_id: @group.id)
     respond_to do |format|
       format.html do
         if payment.save
           flash[:success] = 'New Payment Added Succesfully!'
-          redirect_to group_path(group)
+          redirect_to group_path(@group.id)
         else
           render :new, alert: 'Error occured!'
         end
@@ -32,6 +32,6 @@ class PaymentsController < ApplicationController
   private
 
   def payment_params
-    params.require(:data).permit(:name, :amount)
+    params.require(:data).permit(:name, :amount, :category)
   end
 end
