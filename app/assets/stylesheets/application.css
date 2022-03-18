@@ -14,7 +14,7 @@
  *= require_self
  */
 
- .d-flex {
+.d-flex {
   display: flex;
 }
 
