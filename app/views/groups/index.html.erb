@@ -6,23 +6,29 @@
     <h1 class='index-header'>No category for this user. Please add a category <%= link_to "here", new_group_path%></h2>
   </div>
 <%else%>
-  <% @groups.each do |group| %>
-  <div class="p-2 m-3  category-div">
-   <div class="category-info">
-    <p> <%=image_tag "#{group.icon}" ,class:"p-2 m-1 rounded img-thumbnail"%></p>
-    <ul class="p-2 m-1">
-      <li> <p ><%= link_to group.name, group_path(group), class:"p-2 m-2 text-muted h2" %></p></li>
-      <li> <p class="p-2 m-2"> <%= group.created_at.strftime("%d-%b-%Y")%></p></li>
-    </ul>
+ <div class='equipments-container d-flex f-col a-center j-center'>
+    <div class='new-equipment d-flex a-center'>
+          <%= link_to "Add new Category", new_group_path %>
     </div>
-    <ul class="p-2 m-1">
-    <li><p class="p-2 m-2 h3"> $<%= group.payments.sum(:amount)%></p></li>
-    <li>
+  <div class='new-equipment-container d-flex f-col a-center j-center'>
+  <% @groups.each do |group| %>
+  <%= link_to group_path(group.id) do %>
+   <div class='equipment d-flex a-center'>
+     <%=image_tag "#{group.icon}" , width:'150px', height:'150px' %>
+     <div class='name-date d-flex f-col a-center'>
+       <p ><%= group.name %></p>
+       <p> <%= group.created_at.strftime("%d-%b-%Y")%></p>
+      </div>
+ 
+    <p class='price'> $<%= group.payments.sum(:amount)%></p>
+  
     <%if can? :destroy, group%>
-        <%=button_to "Delete", group_path(group.id), method: :delete, class:"btn btn-primary px-4 m-2"%>
+        <%=button_to "Delete", group_path(group.id), method: :delete%>
       <%end%>
-    </li>
-    </ul>
+
     </div>
   <%end%>
+<%end%>
+</div>
+</div>
 <%end%>

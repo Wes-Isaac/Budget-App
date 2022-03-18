@@ -6,10 +6,10 @@ class PaymentsController < ApplicationController
     @payment = Payment.new
   end
 
-
   def create
     @group = Group.find_by(name: payment_params[:category])
-    payment = @group.payments.new(name: payment_params[:name], amount: payment_params[:amount], user_id: current_user.id, group_id: @group.id)
+    payment = @group.payments.new(name: payment_params[:name], amount: payment_params[:amount],
+                                  user_id: current_user.id, group_id: @group.id)
     respond_to do |format|
       format.html do
         if payment.save

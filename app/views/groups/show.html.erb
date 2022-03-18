@@ -1,48 +1,41 @@
-<div class="p-2 category-div">
-  <div class="category-info">
-    <ul class="p-2 m-2">
-        <p> <%=image_tag @group.icon ,class:"p-1 mx-1 mt-3 rounded img-thumbnail"%></p>
-        <li> <p class="p-2 m-2 text-muted h2" ><%= @group.name%></p></li>
-    </ul>
+<div class='back-arrow-cont d-flex a-cnter j-center'>
+    <h1 class='repair-header d-flex a-center j-center'>Category Payment</h1>
+    <%= link_to root_path do %>
+    <%= image_tag("backarrow.png", width:'50px', height:'50px') %>
+<%end%>
+</div>
+<%if @group.payments.empty?%>
+  <div class='equipments-show-page d-flex a-center j-center'>
+    <h1 class='index-header'>No payment for this category. Please add a payment <%= link_to "here", new_payment_path(id: @group.id)%></h2>
   </div>
-  <ul class="p-2 m-2">
-    <li><p class="p-2 m-2 h3"> $<%= @group.payments.sum(:amount)%></p></li>
-    <li>
-    <%if can? :destroy, @group%>
-        <%=button_to "Delete", group_path(@group.id), method: :delete, class:"btn btn-primary px-4 m-2"%>
-    <%end%>
-    </li>
-  </ul>
-</div>
-
-<% if @group.payments.any? %>
-    
-    
-    <% @group.payments.order(created_at:'DESC').each do |pay|%>
-      <div class="p-2 m-3 category-div">
-        <div class="category-info">
-          <ul class="p-2 m-1">
-            <li><p class="p-2 m-2 text-muted h2" ><%= pay.name%></p></li>
-            <li> <p class="p-2 m-2"> <%= pay.created_at.strftime("%d-%b-%Y")%></p></li>
-          </ul>
+<%else%>
+    <div class='repair-cont d-flex f-col a-center j-center'>
+    <%= render partial: "layouts/flash" %>
+    <div class='equipment d-flex a-center'>
+      <%= image_tag @group.icon, width:'150px', height:'150px' %>
+            <div class='name-date d-flex f-col a-center'>
+                <p><%= @group.name%></p>
+                <p><%= @group.created_at.strftime('%d %b %Y at %I %M %p') %></p>
+            </div>
+            <h3 class='price'><%= "$#{@group.payments.sum(:amount)}"%></h3>
+    </div>
+    <div class='new-repair new-equipment d-flex a-center j-center'>
+        <%= link_to "Add new Payment", new_payment_path(id: @group.id) %>
+    </div>
+    <div class='equip-repair-cont d-flex a-center j-center f-col'>
+      <%@group.payments.order(created_at:'DESC').each do |pay|%>
+        <div class='repair d-flex a-center'>
+        <div class='cost-date d-flex f-col'>
+           <h1><%= "Your #{pay.name } costs: $#{pay.amount} "%></h1>
+            <p><%= pay.created_at.strftime("%d-%b-%Y") %></p>
         </div>
-        <ul class="p-2 m-1">
-         <li> <p class="p-2 m-2 h4" >$<%= pay.amount%></p></li>
-         <li>
-         <p><%= @group.id%> </p>
-         <p><%= pay.id%> </p>
-          <%if can? :destroy, pay%>
-          <%=button_to "Delete", payment_path(id: pay.id), method: :delete, class:"btn btn-primary px-4 m-2"%>
-          <%end%>
-         </li>
-        </ul>
-      </div>
+           
+            <%if can? :destroy, pay %>
+              <%= button_to "Delete", payment_path(id: pay.id), :method => :delete %>
+            <%end%>
+        </div>
     <%end%>
-  <%else%>
-      <p class="p-2 m-2 h3" >There are no transactions for this category</p>
-  <%end%>
-
-
-<div class="w-100 py-3 px-3 btnn">
-    <%= link_to "Add transaction",  new_payment_path(id: @group.id), class: "btn btn-outline-light  w-75 p-2"%>
-</div>
+    </div>
+    
+   </div>
+<%end%>
