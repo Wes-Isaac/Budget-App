@@ -1,14 +1,17 @@
-class GroupController < ApplicationController
+class GroupsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @groups = current_user.groups
+  end
+
   def create
-    group = Group.find(params[:group_id])
-    payment = group.payments.create(payment_params)
+    group = current_user.groups.new(group_params)
     respond_to do |format|
       format.html do
-        if payment.save
-          flash[:success] = 'New Payment Added Succesfully!'
-          redirect_to group_path(group)
+        if group.save
+          flash[:success] = 'Created New Group Succesfully!'
+          redirect_to groups_path
         else
           render :new, alert: 'Error occured!'
         end
@@ -17,20 +20,25 @@ class GroupController < ApplicationController
   end
 
   def new
-    @group = Group.find(params[:group_id])
-    @payment = Payment.new
+    @group = Group.new
+    # @icons = icons
+  end
+
+  def show
+    @group = Group.find(params[:id])
+    @payments = @group.payments
   end
 
   def destroy
-    payment = Payment.find(params[:id])
-    payment.destroy
-    redirect_to root_path
-    flash[:success] = 'Payment Deleted'
+    group = Group.find(params[:id])
+    group.destroy
+    redirect_to groups_path
+    flash[:success] = 'Group Deleted!'
   end
 
   private
 
-  def payment_params
-    params.require(:data).permit(:name, :amount)
+  def group_params
+    params.require(:data).permit(:name, :icon)
   end
 end
