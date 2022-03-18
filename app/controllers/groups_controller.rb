@@ -21,7 +21,8 @@ class GroupsController < ApplicationController
 
   def new
     @group = Group.new
-    # @icons = icons
+    @icons = { 'Grocery' => 'icon0.png', 'Food' => 'icon1.png', 'Bills' => 'icon2.jpg', 'Housing' => 'icon3.png',
+      'Mortgage' => 'icon4.png', 'Shopping' => 'icon5.png' }
   end
 
   def show

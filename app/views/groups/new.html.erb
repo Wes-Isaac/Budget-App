@@ -1,0 +1,25 @@
+<div class='back-arrow-cont d-flex a-cnter j-center'>
+    <h1 class='repair-header d-flex a-center j-center'>New Category</h1>
+</div>
+<div class='add-equipment d-flex f-col a-center j-center'> 
+    <%=form_with url: groups_path, scope: :data do |f| %>
+      <div class="field3 d-flex a-center j-center f-col" >
+        <%= f.label :icon, 'Select Icon' %>
+         <%= f.select :icon, options_for_select([
+      ['Grocery', @icons["Grocery"]],
+      ['Food' ,@icons["Food"]],
+      ['Bills' ,@icons["Bills"]],
+      ['Housing' ,@icons["Housing"]],
+      ['Mortgage' ,@icons["Mortgage"]],
+      ['Shopping' ,@icons["Shopping"]],
+    ]),{ include_blank: "Select Icon"}, required: true , class:"form-select"%>
+      </div>
+      <div class="field3 d-flex a-center j-center f-col">
+        <%= f.label :name, 'Name'  %>
+        <%= f.text_field :name, :required=>true %>
+      </div>
+    <div class="action1 d-flex a-center f-col">
+         <%= f.submit "Add Category"%>
+    </div>
+<% end %>
+</div>
