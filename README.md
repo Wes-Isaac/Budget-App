@@ -1,6 +1,6 @@
 # Budget App
 
-> This project is created as part of the rails capstone at Microverse. This app is a mobile web application where a user manage its budget: have a list of transactions associated with a category, so that the user can see how much money it spent and on what.
+> This project is created as part of the rails capstone at Microverse. This app is a mobile web application where a user manage their budget: have a list of transactions associated with a category, so that the user can see how much money they spent and on what.
 
 > Credit of the design goes to [Creative Commons license](https://creativecommons.org/licenses/by-nc/4.0/). The Original design idea by [Gregoire Vella on Behance](https://www.behance.net/gregoirevella).
 
